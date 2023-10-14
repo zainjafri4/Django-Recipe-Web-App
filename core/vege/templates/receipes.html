@@ -38,27 +38,45 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
+
+
+        <div class="mt-5">
+            <div class="mx-auto col6">
+                <form>
+                    <div class="mb-3">
+                        <label for="search" class="form-label">Search Reciepe </label>
+                        <br>
+                        <input type="search" id="search" name="search" class=" form-control">
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
         <div>
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">S.no</th>
                         <th scope="col">Receipe Name</th>
-                        <th scope="col">Reciepe Description</th>                      
-                        <th scope="col">Action</th>                      
+                        <th scope="col">Reciepe Description</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for rec in receipes%}                     
+                    {% for rec in receipes%}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td>{{rec.rec_name}}</td>
-                        <td>{{rec.rec_dec}}</td>                        
+                        <td>{{rec.rec_dec}}</td>
                         <td>
                             <a href="/delete_rec/{{rec.id}}/" class="btn btn-danger">Delete</a>
-                        </td>                        
-                    </tr>    
-                    {% endfor %}                
+                            <a href="/update_rec/{{rec.id}}/" class="btn btn-primary">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
