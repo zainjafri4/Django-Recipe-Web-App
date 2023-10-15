@@ -55,4 +55,9 @@ def update_rec(request, id):
    return render(request, 'update_rec.html', context = {'receipe' : qupdate} ) 
 
 
+def login(request):
+   return render (request, 'login.html')
+
+def register(request):
+   return render (request, 'register.html')
 
