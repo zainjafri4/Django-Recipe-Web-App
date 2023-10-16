@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from vege.models import *
+from django.contrib.auth.models import User
+from django.contrib import messages
+
+
 
 def receipes(request):
     if request.method == 'POST':
@@ -59,5 +63,32 @@ def login(request):
    return render (request, 'login.html')
 
 def register(request):
-   return render (request, 'register.html')
+   if request.method == 'POST':
 
+      user_data = request.POST
+
+      first_name = user_data.get('first_name')
+      last_name = user_data.get('last_name')
+      username = user_data.get('username')
+      password = user_data.get('password')
+
+      print(first_name, last_name, username, password)  
+
+      user = User.objects.filter(username = username)
+
+      if user.exists():
+         messages.info(request, "username already exists")
+         return redirect ('/register/')
+
+      user1 = User.objects.create(
+      first_name=first_name,
+      last_name=last_name,
+      username=username)
+      user1.set_password(password)
+      user1.save()
+
+      messages.info(request, "Account Created Successfully")
+      return redirect('/register/')
+      
+      
+   return render(request, 'register.html')

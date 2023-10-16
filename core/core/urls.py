@@ -18,18 +18,23 @@ from django.contrib import admin
 from django.urls import path
 from home.views import *
 from vege.views import *
+from accounts.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('', home, name='home'),    
+    path('', home, name='home'),  
+      
     path('about/', about, name='about'),    
-    path('receipes/', receipes, name='receipes'),    
+    path('receipes/', receipes, name='receipes'),  
+
     path('delete_rec/<int:id>/', delete_rec, name='delete_rec'),    
     path('update_rec/<int:id>/', update_rec, name='update_rec'),
+
     path('login/', login, name='login'),    
     path('register/', register, name='register'),    
+
     path('admin/', admin.site.urls)
 ]
 
