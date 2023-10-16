@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from vege.models import *
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login as log, logout
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required(login_url='/login/')
 def receipes(request):
     if request.method == 'POST':
 
@@ -32,11 +34,13 @@ def receipes(request):
 
     return render (request, 'receipes.html', context = {'page' : 'Receipes', 'receipes' : queryset})
 
+@login_required(login_url='/login/')
 def delete_rec(request, id):
    qdel = rec.objects.get(id = id)
    qdel.delete()
    return redirect('/receipes/')
 
+@login_required(login_url='/login/')
 def update_rec(request, id):
    qupdate = rec.objects.get(id = id)
 
@@ -60,7 +64,31 @@ def update_rec(request, id):
 
 
 def login(request):
-   return render (request, 'login.html')
+   if request.method == 'POST':
+      
+      user_data = request.POST
+      username = user_data.get('username')
+      password = user_data.get('password')
+      
+      if not User.objects.filter(username = username).exists():
+         messages.error(request, "Username Does not exist")
+         return redirect ('/login/')
+      
+      user = authenticate(username = username , password = password)
+
+      if user is None:
+         messages.error(request, "Incorrect Credentials")
+         return redirect ('/login/')
+      else:
+         log(request, user)                 
+         return redirect('/receipes/')
+         
+   return render (request, 'login.html', context = {'page' : 'Login'})
+
+@login_required(login_url='/login/')
+def logout_page(request):
+   logout(request)
+   return redirect ('/login/')
 
 def register(request):
    if request.method == 'POST':
@@ -91,4 +119,4 @@ def register(request):
       return redirect('/register/')
       
       
-   return render(request, 'register.html')
+   return render(request, 'register.html', context = {'page' : 'Sign up'})
