@@ -1,6 +1,31 @@
-{% extends 'base.html' %}
-{% block body %}
+{% extends "base.html" %}
 
-<body>
-    <h1>About Page</h1>
+{% block body %}
+    <style>
+        body {
+            background: #fff; /* White background for the entire screen */
+            color: #000; /* Text color */
+            text-align: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, #1c49dd, #00A08B);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 100px;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="content-box">
+            <h2>A Web-App made by Zain</h2>
+            <p>As his first Django Project</p>
+        </div>
+    </div>
 {% endblock body %}

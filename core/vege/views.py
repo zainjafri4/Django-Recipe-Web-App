@@ -120,3 +120,6 @@ def register(request):
       
       
    return render(request, 'register.html', context = {'page' : 'Sign up'})
+
+def about(request):
+   return render(request, "about.html")
