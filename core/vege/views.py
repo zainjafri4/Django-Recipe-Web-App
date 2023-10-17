@@ -83,7 +83,7 @@ def login(request):
          log(request, user)                 
          return redirect('/receipes/')
          
-   return render (request, 'login.html', context = {'page' : 'Login'})
+   return render (request, 'index.html', context = {'page' : 'Login'})
 
 @login_required(login_url='/login/')
 def logout_page(request):
